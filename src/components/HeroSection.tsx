@@ -37,7 +37,9 @@ export default function HeroSection() {
           fontSize: 'clamp(32px, 5vw, 48px)',
           fontWeight: 700,
           marginBottom: 32,
-          letterSpacing: '-1px'
+          letterSpacing: '-1px',
+          userSelect: 'none',
+          cursor: 'default'
         }}>
           Shelby is now available for Cards.
         </h1>
@@ -146,7 +148,7 @@ export default function HeroSection() {
                   {net.icon}
                 </div>
                 <div>
-                  <div style={{ fontWeight: 700, fontSize: 16 }}>{net.name}</div>
+                  <div style={{ fontWeight: 700, fontSize: 16, userSelect: 'none', cursor: 'default' }}>{net.name}</div>
                   <button style={{
                     background: `${net.color}30`,
                     color: net.color,
@@ -222,7 +224,7 @@ export default function HeroSection() {
               }} />
             </div>
             <div>
-              <div style={{ fontWeight: 700, fontSize: 14 }}>Connect</div>
+              <div style={{ fontWeight: 700, fontSize: 14, userSelect: 'none', cursor: 'default' }}>Connect</div>
               <div style={{ color: 'var(--muted)', fontSize: 12 }}>Connect your card</div>
             </div>
           </div>
@@ -237,7 +239,7 @@ export default function HeroSection() {
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
               <div style={{ color: '#f59e0b' }}>⚡</div>
               <div>
-                <div style={{ fontWeight: 700, fontSize: 14 }}>Notification</div>
+                <div style={{ fontWeight: 700, fontSize: 14, userSelect: 'none', cursor: 'default' }}>Notification</div>
                 <div style={{ color: 'var(--muted)', fontSize: 11 }}>Latest updates and news</div>
               </div>
             </div>

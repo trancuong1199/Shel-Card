@@ -26,7 +26,7 @@ export default function Leaderboard() {
         <h1 className="fade-up" style={{ color: 'var(--text)', fontSize: 42, fontWeight: 800, marginBottom: 12, letterSpacing: -0.8 }}>
           ShelCard Leaderboard
         </h1>
-        <p className="fade-up" style={{ color: 'var(--muted)', fontSize: 15, maxWidth: 800, margin: '0 auto', lineHeight: 1.6 }}>
+        <p className="fade-up" style={{ color: 'var(--muted)', fontSize: 15, maxWidth: 800, margin: '0 auto', lineHeight: 1.6, userSelect: 'none', cursor: 'default' }}>
           Mar 10 - Apr 10, 2026 (UTC) Top 100 users ranked by total GM + Deploy across all mainnet networks will receive rewards listed in the reward section. Only mainnet transactions are counted (excluding testnet).
         </p>
       </div>
@@ -45,10 +45,10 @@ export default function Leaderboard() {
               </div>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span style={{ fontSize: 18, fontWeight: 800, color: 'var(--text)', letterSpacing: -0.3 }}>User Leaderboard</span>
+                  <span style={{ fontSize: 18, fontWeight: 800, color: 'var(--text)', letterSpacing: -0.3, userSelect: 'none', cursor: 'default' }}>User Leaderboard</span>
                   <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--accent)', background: 'var(--accent-lo)', padding: '2px 8px', borderRadius: 20, border: '1px solid var(--accent-mid)' }}>Top 100</span>
                 </div>
-                <div style={{ fontSize: 13, color: 'var(--muted)', marginTop: 4 }}>Campaign: Mar 10 - Apr 10, 2026 UTC</div>
+                <div style={{ fontSize: 13, color: 'var(--muted)', marginTop: 4, userSelect: 'none', cursor: 'default' }}>Campaign: Mar 10 - Apr 10, 2026 UTC</div>
               </div>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--accent)', background: 'var(--accent-lo)', padding: '6px 14px', borderRadius: 20, fontWeight: 700 }}>
@@ -66,8 +66,8 @@ export default function Leaderboard() {
                 </svg>
               </div>
               <div>
-                <div style={{ fontSize: 14, fontWeight: 800, color: '#d77828' }}>Leaderboard Status</div>
-                <div style={{ fontSize: 13, color: 'var(--muted)' }}>You are currently not in the Top 100.</div>
+                <div style={{ fontSize: 14, fontWeight: 800, color: '#d77828', userSelect: 'none', cursor: 'default' }}>Leaderboard Status</div>
+                <div style={{ fontSize: 13, color: 'var(--muted)', userSelect: 'none', cursor: 'default' }}>You are currently not in the Top 100.</div>
               </div>
             </div>
             <button style={{ background: 'rgba(215, 120, 40, 0.12)', color: '#d77828', border: '1px solid rgba(215, 120, 40, 0.2)', padding: '8px 16px', borderRadius: 8, fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>
@@ -80,44 +80,45 @@ export default function Leaderboard() {
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid var(--border)' }}>
-                  <th style={{ padding: '16px 28px', fontSize: 12, color: 'var(--muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>#</th>
-                  <th style={{ padding: '16px 12px', fontSize: 12, color: 'var(--muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>User</th>
-                  <th style={{ padding: '16px 12px', fontSize: 12, color: 'var(--muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5, textAlign: 'center' }}>GM</th>
-                  <th style={{ padding: '16px 12px', fontSize: 12, color: 'var(--muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5, textAlign: 'center' }}>Deploy</th>
-                  <th style={{ padding: '16px 12px', fontSize: 12, color: 'var(--muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5, textAlign: 'center' }}>Total</th>
-                  <th style={{ padding: '16px 28px', fontSize: 12, color: 'var(--muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5, textAlign: 'right' }}>Reward</th>
+                  <th style={{ padding: '16px 28px', fontSize: 12, color: 'var(--muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5, userSelect: 'none', cursor: 'default' }}>#</th>
+                  <th style={{ padding: '16px 12px', fontSize: 12, color: 'var(--muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5, userSelect: 'none', cursor: 'default' }}>User</th>
+                  <th style={{ padding: '16px 12px', fontSize: 12, color: 'var(--muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5, textAlign: 'center', userSelect: 'none', cursor: 'default' }}>GM</th>
+                  <th style={{ padding: '16px 12px', fontSize: 12, color: 'var(--muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5, textAlign: 'center', userSelect: 'none', cursor: 'default' }}>Deploy</th>
+                  <th style={{ padding: '16px 12px', fontSize: 12, color: 'var(--muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5, textAlign: 'center', userSelect: 'none', cursor: 'default' }}>Total</th>
+                  <th style={{ padding: '16px 28px', fontSize: 12, color: 'var(--muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5, textAlign: 'right', userSelect: 'none', cursor: 'default' }}>Reward</th>
                 </tr>
               </thead>
               <tbody>
                 {leaderboardData.map((row, i) => (
                   <tr key={row.rank} style={{ borderBottom: i === leaderboardData.length - 1 ? 'none' : '1px solid #1e232e' }}>
                     <td style={{ padding: '16px 28px' }}>
-                      <div style={{
-                        width: 24, height: 24, borderRadius: 6,
-                        background: row.rank === 1 ? '#d77828' : row.rank === 2 ? '#8e97a4' : row.rank === 3 ? '#a66927' : '#1e232e',
-                        color: row.rank <= 3 ? '#ffffff' : '#8e97a4',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700
-                      }}>
-                        {row.rank}
-                      </div>
+                        <div style={{
+                          width: 24, height: 24, borderRadius: 6,
+                          background: row.rank === 1 ? '#d77828' : row.rank === 2 ? '#8e97a4' : row.rank === 3 ? '#a66927' : '#1e232e',
+                          color: row.rank <= 3 ? '#ffffff' : '#8e97a4',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700,
+                          userSelect: 'none', cursor: 'default'
+                        }}>
+                          {row.rank}
+                        </div>
                     </td>
                     <td style={{ padding: '16px 12px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <span style={{ fontSize: 13, fontWeight: 600, color: '#ffffff', fontFamily: 'monospace' }}>{row.user}</span>
+                        <span style={{ fontSize: 13, fontWeight: 600, color: '#ffffff', fontFamily: 'monospace', cursor: 'default', userSelect: 'none' }}>{row.user}</span>
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8e97a4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ cursor: 'pointer' }}>
                           <rect width="14" height="14" x="8" y="8" rx="2" ry="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
                         </svg>
                       </div>
                     </td>
-                    <td style={{ padding: '16px 12px', textAlign: 'center', color: '#4ade80', fontSize: 13, fontWeight: 600 }}>{row.gm}</td>
-                    <td style={{ padding: '16px 12px', textAlign: 'center', color: '#0091ff', fontSize: 13, fontWeight: 600 }}>{row.deploy}</td>
-                    <td style={{ padding: '16px 12px', textAlign: 'center', color: '#0091ff', fontSize: 13, fontWeight: 800 }}>{row.total}</td>
+                    <td style={{ padding: '16px 12px', textAlign: 'center', color: '#4ade80', fontSize: 13, fontWeight: 600, userSelect: 'none', cursor: 'default' }}>{row.gm}</td>
+                    <td style={{ padding: '16px 12px', textAlign: 'center', color: '#0091ff', fontSize: 13, fontWeight: 600, userSelect: 'none', cursor: 'default' }}>{row.deploy}</td>
+                    <td style={{ padding: '16px 12px', textAlign: 'center', color: '#0091ff', fontSize: 13, fontWeight: 800, userSelect: 'none', cursor: 'default' }}>{row.total}</td>
                     <td style={{ padding: '16px 28px', textAlign: 'right' }}>
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 6 }}>
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d77828" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" /><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" /><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
                         </svg>
-                        <span style={{ fontSize: 13, fontWeight: 700, color: '#d77828' }}>{row.reward}</span>
+                        <span style={{ fontSize: 13, fontWeight: 700, color: '#d77828', userSelect: 'none', cursor: 'default' }}>{row.reward}</span>
                       </div>
                     </td>
                   </tr>

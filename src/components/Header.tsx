@@ -62,10 +62,10 @@ export default function Header() {
               </svg>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <span style={{ fontSize: 15, fontWeight: 800, color: 'var(--text)', letterSpacing: -0.2, lineHeight: 1.2 }}>
+              <span style={{ fontSize: 15, fontWeight: 800, color: 'var(--text)', letterSpacing: -0.2, lineHeight: 1.2, userSelect: 'none', cursor: 'default' }}>
                 ShelCard
               </span>
-              <span style={{ fontSize: 10, color: 'var(--muted)', fontWeight: 500 }}>
+              <span style={{ fontSize: 10, color: 'var(--muted)', fontWeight: 500, userSelect: 'none', cursor: 'default' }}>
                 Your Daily Web3 Ritual
               </span>
             </div>

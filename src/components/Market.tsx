@@ -31,11 +31,11 @@ export default function Market() {
         <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
           {stats.map((stat, i) => (
             <div key={stat.label} className="stat-cell" style={{ padding: '28px 20px', borderRight: i < 3 ? '1px solid var(--border)' : 'none' }}>
-              <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 22, fontWeight: 700, letterSpacing: -0.5, marginBottom: 6, color: 'var(--accent)' }}>
+              <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 22, fontWeight: 700, letterSpacing: -0.5, marginBottom: 6, color: 'var(--accent)', userSelect: 'none', cursor: 'default' }}>
                 {stat.value}
                 {stat.unit && <span style={{ fontSize: 14, marginLeft: 6, color: 'var(--text)' }}>{stat.unit}</span>}
               </div>
-              <div style={{ fontSize: 10, color: 'var(--muted)', fontWeight: 600, textTransform: 'uppercase' as const, letterSpacing: 0.8, whiteSpace: 'nowrap' as const }}>
+              <div style={{ fontSize: 10, color: 'var(--muted)', fontWeight: 600, textTransform: 'uppercase' as const, letterSpacing: 0.8, whiteSpace: 'nowrap' as const, userSelect: 'none', cursor: 'default' }}>
                 {stat.label}
               </div>
             </div>
