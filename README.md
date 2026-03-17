@@ -1,4 +1,4 @@
-# ShelCard 🎴
+# ShelCard 🎴 (Link: https://shel-card.vercel.app/)
 
 **ShelCard** is a premium Web3 platform for collecting, managing, and showcasing your on-chain identity through unique blockchain badges and trading cards. Built on the **Shelby Protocol** and high-speed **Aptos** network, ShelCard offers a seamless "Daily Web3 Ritual" for enthusiasts.
 
