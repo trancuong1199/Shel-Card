@@ -1,9 +1,15 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useWallet } from '@aptos-labs/wallet-adapter-react'
 
 export default function Faucet() {
   const { account } = useWallet()
-  const [address, setAddress] = useState(account?.address.toString() || '')
+  const [address, setAddress] = useState('')
+
+  useEffect(() => {
+    if (account?.address) {
+      setAddress(account.address.toString())
+    }
+  }, [account?.address])
 
   const handleFaucet = (token: 'shelbyusd' | 'aptos') => {
     if (!address) {
