@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useWallet } from '@aptos-labs/wallet-adapter-react'
+import { useDeleteBlobs } from '@shelby-protocol/react'
+import { shelbyClient } from '../lib/shelby'
 
 const defaultBadges = [
   {
@@ -30,10 +32,14 @@ const defaultBadges = [
 ]
 
 export default function Library() {
-  const { connect, wallets, connected } = useWallet()
+  const wallet = useWallet()
+  const { connect, wallets, connected } = wallet
   const [allBadges, setAllBadges] = useState(defaultBadges)
   const [showToast, setShowToast] = useState(false)
   const [toastMsg, setToastMsg] = useState('')
+  const [isDeleting, setIsDeleting] = useState<number | null>(null)
+
+  const { mutateAsync: deleteBlobs } = useDeleteBlobs({ client: shelbyClient })
 
   const location = useLocation()
 
@@ -48,16 +54,37 @@ export default function Library() {
     setTimeout(() => setShowToast(false), 4000)
   }
 
-  const handleDelete = (id: number) => {
-    const userBadges = JSON.parse(localStorage.getItem('user_badges') || '[]')
-    const updatedUserBadges = userBadges.filter((b: any) => b.id !== id)
-    localStorage.setItem('user_badges', JSON.stringify(updatedUserBadges))
+  const handleDelete = async (badge: any) => {
+    setIsDeleting(badge.id)
     
-    setAllBadges(allBadges.filter((b: any) => b.id !== id))
-    
-    setToastMsg(`Successfully deleted!`)
-    setShowToast(true)
-    setTimeout(() => setShowToast(false), 3000)
+    try {
+      // 1. If it's a Shelby blob, delete on-chain
+      if (badge.blobName && wallet.account) {
+        setToastMsg('Deleting from Shelby Network...')
+        setShowToast(true)
+        
+        await deleteBlobs({
+          signer: wallet,
+          blobNames: [badge.blobName]
+        })
+      }
+
+      // 2. Remove from Local Storage
+      const userBadges = JSON.parse(localStorage.getItem('user_badges') || '[]')
+      const updatedUserBadges = userBadges.filter((b: any) => b.id !== badge.id)
+      localStorage.setItem('user_badges', JSON.stringify(updatedUserBadges))
+      
+      setAllBadges(allBadges.filter((b: any) => b.id !== badge.id))
+      
+      setToastMsg(`Successfully deleted!`)
+      setShowToast(true)
+    } catch (error: any) {
+      console.error('Delete failed:', error)
+      alert(`Xóa thất bại: ${error.message}`)
+    } finally {
+      setIsDeleting(null)
+      setTimeout(() => setShowToast(false), 3000)
+    }
   }
 
   if (!connected) {
@@ -182,24 +209,29 @@ export default function Library() {
                 <button 
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleDelete(badge.id);
+                    handleDelete(badge);
                   }}
+                  disabled={isDeleting === badge.id}
                   style={{
                     position: 'absolute', top: 12, right: 12,
                     width: 32, height: 32, borderRadius: 8,
-                    background: 'rgba(239, 68, 68, 0.2)',
+                    background: isDeleting === badge.id ? 'rgba(255, 255, 255, 0.1)' : 'rgba(239, 68, 68, 0.2)',
                     backdropFilter: 'blur(8px)',
                     border: '1px solid rgba(239, 68, 68, 0.3)',
-                    color: '#ef4444',
+                    color: isDeleting === badge.id ? '#8e97a4' : '#ef4444',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    cursor: 'pointer', transition: 'all 0.2s', zIndex: 10
+                    cursor: isDeleting === badge.id ? 'not-allowed' : 'pointer', transition: 'all 0.2s', zIndex: 10
                   }}
-                  onMouseEnter={e => e.currentTarget.style.background = 'rgba(239, 68, 68, 0.8)'}
-                  onMouseLeave={e => e.currentTarget.style.background = 'rgba(239, 68, 68, 0.2)'}
+                  onMouseEnter={e => { if (isDeleting !== badge.id) e.currentTarget.style.background = 'rgba(239, 68, 68, 0.8)' }}
+                  onMouseLeave={e => { if (isDeleting !== badge.id) e.currentTarget.style.background = 'rgba(239, 68, 68, 0.2)' }}
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line>
-                  </svg>
+                  {isDeleting === badge.id ? (
+                    <div style={{ width: 14, height: 14, border: '2px solid rgba(255,255,255,0.1)', borderTopColor: '#fff', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+                  ) : (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line>
+                    </svg>
+                  )}
                 </button>
               )}
             </div>

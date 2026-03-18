@@ -8,7 +8,7 @@ const navLinks = [
   { label: 'Leaderboard', path: '/leaderboard', icon: <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M18 2H6v7a6 6 0 0 0 12 0V2Z" /> },
   { label: 'Upload', path: '#', icon: <path d="M12 2v10M12 2l-4 4M12 2l4 4M2 17l10 5 10-5" /> },
   { label: 'Library', path: '/library', icon: <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-2M6 18a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M6 18V9h12v9" /> },
-  { label: 'Airdrops', path: '/airdrops', icon: <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" /> },
+  { label: 'Faucet', path: '/faucet', icon: <path d="M7 16.3c2.2 0 4-1.8 4-4 0-3.3-4-8-4-8s-4 4.7-4 8c0 2.2 1.8 4 4 4zM17 7c2.2 0 4-1.8 4-4 0-3.3-4-8-4-8s-4 4.7-4 8c0 2.2 1.8 4 4 4z" /> },
 ]
 
 export default function Header() {

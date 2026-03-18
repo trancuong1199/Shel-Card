@@ -7,6 +7,8 @@ import Leaderboard from './pages/Leaderboard'
 import Library from './pages/Library'
 import Airdrops from './pages/Airdrops'
 
+import Faucet from './pages/Faucet'
+
 function Home() {
   return (
     <>
@@ -26,6 +28,7 @@ export default function App() {
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/airdrops" element={<Airdrops />} />
           <Route path="/library" element={<Library />} />
+          <Route path="/faucet" element={<Faucet />} />
         </Routes>
       </main>
       <Footer />

@@ -1,5 +1,8 @@
 import React, { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useWallet } from '@aptos-labs/wallet-adapter-react'
+import { useUploadBlobs } from '@shelby-protocol/react'
+import { shelbyClient } from '../lib/shelby'
 
 interface Props {
   onClose: () => void
@@ -7,6 +10,9 @@ interface Props {
 
 export default function CardUpload({ onClose }: Props) {
   const navigate = useNavigate()
+  const wallet = useWallet()
+  const { mutateAsync: uploadBlobs } = useUploadBlobs({ client: shelbyClient })
+
   const [file, setFile] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
   const [name, setName] = useState('')
@@ -26,33 +32,73 @@ export default function CardUpload({ onClose }: Props) {
     }
   }
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     if (!file || !preview) return
+
+    // Check wallet connection for real upload
+    if (!wallet.account) {
+      alert('Vui lòng kết nối ví để tải lên Shelby Network!')
+      return
+    }
+
     setIsUploading(true)
 
-    // Simulate upload delay
-    setTimeout(() => {
+    try {
+      // 1. Convert to Uint8Array
+      const arrayBuffer = await file.arrayBuffer()
+      const blobData = new Uint8Array(arrayBuffer)
+
+      // 2. Prepare Blob Name (path-style for S3 compatibility)
+      const blobName = `cards/${wallet.account.address}/${Date.now()}-${file.name}`
+
+      // 3. Upload to Shelby
+      // Expiration: 30 days
+      const expirationMicros = (Date.now() + 30 * 24 * 60 * 60 * 1000) * 1000
+
+      await uploadBlobs({
+        signer: wallet,
+        blobs: [{ blobName, blobData }],
+        expirationMicros,
+      })
+
+      // 4. Save to Local Library
       const newBadge = {
         id: Date.now(),
         name: name || 'New card',
-        network: 'Local',
+        network: 'Shelby',
         dotColor: '#0091ff',
         image: preview,
-        description: description || 'New card.',
+        description: description || 'Securely stored on Shelby Protocol.',
+        blobName, // Keep for deletion
       }
 
-      // Save to localStorage
-      try {
+      const existing = JSON.parse(localStorage.getItem('user_badges') || '[]')
+      localStorage.setItem('user_badges', JSON.stringify([newBadge, ...existing]))
+
+      setIsUploading(false)
+      setIsSuccess(true)
+    } catch (error: any) {
+      console.error('Shelby Upload failed:', error)
+      setIsUploading(false)
+
+      // Fallback for simulation if API Key is missing (only for development/demo)
+      if (error.message?.includes('Unauthorized') || !import.meta.env.VITE_SHELBY_TESTNET_KEY) {
+        alert('Note: Running in Demo mode (no API key). Data will be stored locally.')
+        const newBadge = {
+          id: Date.now(),
+          name: name || 'Demo Card',
+          network: 'Local (Demo)',
+          dotColor: '#8e97a4',
+          image: preview,
+          description: description || 'Simulation mode active.',
+        }
         const existing = JSON.parse(localStorage.getItem('user_badges') || '[]')
         localStorage.setItem('user_badges', JSON.stringify([newBadge, ...existing]))
-        setIsUploading(false)
         setIsSuccess(true)
-      } catch (error) {
-        console.error('Upload failed:', error)
-        setIsUploading(false)
-        alert('Warning...')
+      } else {
+        alert(`Tải lên thất bại: ${error.message}`)
       }
-    }, 1500)
+    }
   }
 
   const handleDone = () => {
