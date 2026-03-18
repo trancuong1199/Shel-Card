@@ -7,7 +7,7 @@ export default function Faucet() {
 
   const handleFaucet = (token: 'shelbyusd' | 'aptos') => {
     if (!address) {
-      alert('Vui lòng nhập địa chỉ ví!')
+      alert('Please enter your wallet address!')
       return
     }
     const url = `https://docs.shelby.xyz/apis/faucet/${token}?address=${address}`
