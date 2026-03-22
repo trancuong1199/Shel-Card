@@ -43,11 +43,11 @@ export default function Faucet() {
 
       <div style={{
         width: '100%',
-        background: 'rgba(255, 255, 255, 0.03)',
+        background: 'var(--surface)',
         border: '1px solid var(--border)',
         borderRadius: 24,
         padding: 40,
-        boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
+        boxShadow: '0 20px 40px var(--shadow)',
         backdropFilter: 'blur(10px)',
         display: 'flex',
         flexDirection: 'column',
@@ -65,7 +65,7 @@ export default function Faucet() {
             style={{
               width: '100%',
               padding: '16px 20px',
-              background: 'rgba(0, 0, 0, 0.2)',
+              background: 'var(--surface2)',
               border: '1px solid var(--border)',
               borderRadius: 14,
               color: 'var(--text)',
@@ -84,8 +84,8 @@ export default function Faucet() {
             style={{
               padding: '16px',
               borderRadius: 14,
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              background: 'linear-gradient(135deg, #2b3a4a 0%, #1a232e 100%)',
+              border: '1px solid var(--border)',
+              background: 'var(--surface2)',
               color: 'var(--text)',
               fontWeight: 700,
               fontSize: 15,

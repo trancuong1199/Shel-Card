@@ -53,11 +53,11 @@ export default function Header() {
           <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none', flexShrink: 0 }}>
             <div style={{
               width: 38, height: 38, borderRadius: 10,
-              background: 'linear-gradient(135deg, #2b3a4a 0%, #1a232e 100%)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'var(--accent)',
+              border: '1px solid var(--accent)',
               display: 'flex', alignItems: 'center', justifyContent: 'center'
             }}>
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2.5">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--on-accent)" strokeWidth="2.5">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
               </svg>
             </div>
@@ -84,7 +84,7 @@ export default function Header() {
               placeholder="Find something..."
               style={{
                 width: '100%', padding: '9px 12px 9px 36px',
-                background: 'rgba(255, 255, 255, 0.04)',
+                background: 'var(--surface)',
                 border: '1px solid var(--border)',
                 borderRadius: 10, color: 'var(--text)',
                 fontSize: 13, outline: 'none',
@@ -111,12 +111,12 @@ export default function Header() {
                   }}
                   style={{
                     display: 'flex', alignItems: 'center', gap: 6,
-                    color: location.pathname === link.path ? 'var(--text)' : 'var(--muted)',
+                    color: location.pathname === link.path ? 'var(--accent)' : 'var(--muted)',
                     textDecoration: 'none',
                     fontSize: 13, fontWeight: 600,
                     padding: '8px 14px', borderRadius: 10,
                     transition: 'all .15s', whiteSpace: 'nowrap' as const,
-                    background: location.pathname === link.path ? 'rgba(255, 255, 255, 0.05)' : 'transparent',
+                    background: location.pathname === link.path ? 'var(--accent-lo)' : 'transparent',
                   }}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
@@ -134,7 +134,7 @@ export default function Header() {
             <div className="desktop-only" style={{
               display: 'flex', alignItems: 'center', gap: 8,
               padding: '6px 12px', borderRadius: 10,
-              background: 'rgba(255, 255, 255, 0.04)',
+              background: 'var(--surface)',
               border: '1px solid var(--border)', cursor: 'pointer'
             }}>
               <div style={{
@@ -155,13 +155,13 @@ export default function Header() {
               display: 'inline-flex', alignItems: 'center', gap: 8,
               padding: '8px 16px', borderRadius: 10,
               fontSize: 13, fontWeight: 700,
-              background: 'rgba(255, 255, 255, 0.04)',
-              color: 'var(--text)',
-              border: '1px solid var(--border)',
+              background: 'var(--accent)',
+              color: 'var(--on-accent)',
+              border: 'none',
               cursor: 'pointer',
             }}>
               {walletLabel}
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" strokeWidth="3">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--on-accent)" strokeWidth="3">
                 <path d="M6 9l6 6 6-6" />
               </svg>
             </button>
@@ -169,7 +169,7 @@ export default function Header() {
             {/* Settings */}
             <button style={{
               width: 36, height: 36, borderRadius: 10,
-              border: '1px solid var(--border)', background: 'rgba(255, 255, 255, 0.04)',
+              border: '1px solid var(--border)', background: 'var(--surface)',
               color: 'var(--muted)', cursor: 'pointer',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>

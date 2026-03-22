@@ -58,19 +58,19 @@ export default function Leaderboard() {
           </div>
 
           {/* User Status Bar */}
-          <div style={{ margin: '20px 28px', background: 'rgba(215, 120, 40, 0.08)', border: '1px solid rgba(215, 120, 40, 0.2)', borderRadius: 12, padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
+          <div style={{ margin: '20px 28px', background: 'var(--accent-lo)', border: '1px solid var(--accent-mid)', borderRadius: 12, padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-              <div style={{ width: 36, height: 36, borderRadius: 8, background: 'rgba(215, 120, 40, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d77828" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <div style={{ width: 36, height: 36, borderRadius: 8, background: 'var(--accent-lo)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" /><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" /><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
                 </svg>
               </div>
               <div>
-                <div style={{ fontSize: 14, fontWeight: 800, color: '#d77828', userSelect: 'none', cursor: 'default' }}>Leaderboard Status</div>
+                <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--accent)', userSelect: 'none', cursor: 'default' }}>Leaderboard Status</div>
                 <div style={{ fontSize: 13, color: 'var(--muted)', userSelect: 'none', cursor: 'default' }}>You are currently not in the Top 100.</div>
               </div>
             </div>
-            <button style={{ background: 'rgba(215, 120, 40, 0.12)', color: '#d77828', border: '1px solid rgba(215, 120, 40, 0.2)', padding: '8px 16px', borderRadius: 8, fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+            <button style={{ background: 'var(--accent-lo)', color: 'var(--accent)', border: '1px solid var(--accent-mid)', padding: '8px 16px', borderRadius: 8, fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>
               Unranked
             </button>
           </div>
@@ -90,12 +90,12 @@ export default function Leaderboard() {
               </thead>
               <tbody>
                 {leaderboardData.map((row, i) => (
-                  <tr key={row.rank} style={{ borderBottom: i === leaderboardData.length - 1 ? 'none' : '1px solid #1e232e' }}>
+                  <tr key={row.rank} style={{ borderBottom: i === leaderboardData.length - 1 ? 'none' : '1px solid var(--border)' }}>
                     <td style={{ padding: '16px 28px' }}>
                         <div style={{
                           width: 24, height: 24, borderRadius: 6,
-                          background: row.rank === 1 ? '#d77828' : row.rank === 2 ? '#8e97a4' : row.rank === 3 ? '#a66927' : '#1e232e',
-                          color: row.rank <= 3 ? '#ffffff' : '#8e97a4',
+                          background: row.rank === 1 ? 'var(--accent)' : row.rank === 2 ? '#8e97a4' : row.rank === 3 ? '#a66927' : 'var(--surface2)',
+                          color: row.rank <= 3 ? '#ffffff' : 'var(--muted)',
                           display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700,
                           userSelect: 'none', cursor: 'default'
                         }}>
@@ -104,21 +104,21 @@ export default function Leaderboard() {
                     </td>
                     <td style={{ padding: '16px 12px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <span style={{ fontSize: 13, fontWeight: 600, color: '#ffffff', fontFamily: 'monospace', cursor: 'default', userSelect: 'none' }}>{row.user}</span>
+                        <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--text)', fontFamily: 'monospace', cursor: 'default', userSelect: 'none' }}>{row.user}</span>
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8e97a4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ cursor: 'pointer' }}>
                           <rect width="14" height="14" x="8" y="8" rx="2" ry="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
                         </svg>
                       </div>
                     </td>
-                    <td style={{ padding: '16px 12px', textAlign: 'center', color: '#4ade80', fontSize: 13, fontWeight: 600, userSelect: 'none', cursor: 'default' }}>{row.gm}</td>
-                    <td style={{ padding: '16px 12px', textAlign: 'center', color: '#0091ff', fontSize: 13, fontWeight: 600, userSelect: 'none', cursor: 'default' }}>{row.deploy}</td>
-                    <td style={{ padding: '16px 12px', textAlign: 'center', color: '#0091ff', fontSize: 13, fontWeight: 800, userSelect: 'none', cursor: 'default' }}>{row.total}</td>
+                    <td style={{ padding: '16px 12px', textAlign: 'center', color: '#10b981', fontSize: 13, fontWeight: 600, userSelect: 'none', cursor: 'default' }}>{row.gm}</td>
+                    <td style={{ padding: '16px 12px', textAlign: 'center', color: 'var(--accent)', fontSize: 13, fontWeight: 600, userSelect: 'none', cursor: 'default' }}>{row.deploy}</td>
+                    <td style={{ padding: '16px 12px', textAlign: 'center', color: 'var(--accent)', fontSize: 13, fontWeight: 800, userSelect: 'none', cursor: 'default' }}>{row.total}</td>
                     <td style={{ padding: '16px 28px', textAlign: 'right' }}>
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 6 }}>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d77828" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" /><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" /><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
                         </svg>
-                        <span style={{ fontSize: 13, fontWeight: 700, color: '#d77828', userSelect: 'none', cursor: 'default' }}>{row.reward}</span>
+                        <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', userSelect: 'none', cursor: 'default' }}>{row.reward}</span>
                       </div>
                     </td>
                   </tr>
@@ -134,7 +134,8 @@ export default function Leaderboard() {
         position: 'fixed', bottom: 24, right: 24,
         padding: '20px', width: 300,
         boxShadow: '0 12px 32px var(--shadow)',
-        zIndex: 1000
+        zIndex: 1000,
+        background: 'var(--surface)'
       }}>
         <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--text)', marginBottom: 8, lineHeight: 1.4, letterSpacing: -0.2 }}>
           Own your card, don't rent it.

@@ -47,7 +47,7 @@ export default function HeroSection() {
         {/* Filter Tabs */}
         <div style={{
           display: 'inline-flex',
-          background: '#1a1e26',
+          background: 'var(--surface2)',
           padding: 6,
           borderRadius: 12,
           gap: 4
@@ -109,8 +109,8 @@ export default function HeroSection() {
         }}>
           {networks.map(net => (
             <div key={net.id} style={{
-              background: '#151921',
-              border: '1px solid #262c36',
+              background: 'var(--surface)',
+              border: '1px solid var(--border)',
               borderRadius: 20,
               padding: 20,
               position: 'relative',
@@ -138,20 +138,20 @@ export default function HeroSection() {
                   width: 48,
                   height: 48,
                   borderRadius: '50%',
-                  background: '#0b0d10',
+                  background: 'var(--surface2)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontSize: 24,
-                  border: `2px solid ${net.color}40`
+                   border: '2px solid var(--accent-lo)'
                 }}>
                   {net.icon}
                 </div>
                 <div>
                   <div style={{ fontWeight: 700, fontSize: 16, userSelect: 'none', cursor: 'default' }}>{net.name}</div>
                   <button style={{
-                    background: `${net.color}30`,
-                    color: net.color,
+                    background: 'var(--accent-lo)',
+                    color: 'var(--accent)',
                     fontSize: 10,
                     fontWeight: 700,
                     padding: '4px 8px',
@@ -170,7 +170,7 @@ export default function HeroSection() {
                 onClick={() => handleConnect(net.name)}
                 style={{
                   width: '100%',
-                  background: net.color === '#000000' ? '#1e232e' : net.color,
+                  background: 'var(--accent)',
                   color: 'white',
                   padding: '12px',
                   borderRadius: 12,
@@ -193,8 +193,8 @@ export default function HeroSection() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
           {/* Connection Status Card */}
           <div style={{
-            background: '#151921',
-            border: '1px solid #262c36',
+            background: 'var(--surface)',
+            border: '1px solid var(--border)',
             borderRadius: 20,
             padding: 20,
             display: 'flex',
@@ -205,7 +205,7 @@ export default function HeroSection() {
               width: 40,
               height: 40,
               borderRadius: 10,
-              background: '#1e232e',
+              background: 'var(--surface2)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -220,7 +220,7 @@ export default function HeroSection() {
                 height: 8,
                 background: '#ef4444',
                 borderRadius: '50%',
-                border: '2px solid #1e232e'
+                border: '2px solid var(--surface2)'
               }} />
             </div>
             <div>
@@ -231,8 +231,8 @@ export default function HeroSection() {
 
           {/* Notifications Card */}
           <div style={{
-            background: '#151921',
-            border: '1px solid #262c36',
+            background: 'var(--surface)',
+            border: '1px solid var(--border)',
             borderRadius: 20,
             padding: 20,
           }}>
@@ -251,8 +251,8 @@ export default function HeroSection() {
                 { title: 'Update...', desc: 'Latest updates and news', color: '#06b6d4', icon: '🎁' },
               ].map((item, id) => (
                 <div key={id} style={{
-                  background: '#0b0d10',
-                  border: '1px solid #262c36',
+                  background: 'var(--surface2)',
+                  border: '1px solid var(--border)',
                   borderRadius: 16,
                   padding: 12,
                   display: 'flex',

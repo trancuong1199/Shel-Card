@@ -1,12 +1,12 @@
 import { useState } from 'react'
 
 const stats = [
-  { label: 'TOTAL PROJECTS', value: '179', change: '+100%', subLabel: 'vs last week', color: '#82E006' },
-  { label: 'ACTIVE AIRDROPS', value: '177', change: '+100%', subLabel: 'from yesterday', color: '#82E006' },
-  { label: 'TOTAL RAISED', value: '$19.8B', change: '+100%', subLabel: 'this month', color: '#82E006' },
-  { label: 'AVG DIFFICULTY', value: '64', color: '#0091ff' },
-  { label: 'LOW COST', value: '94', color: '#4ade80' },
-  { label: 'IN PROGRESS', value: '0', color: '#ffffff' },
+  { label: 'TOTAL PROJECTS', value: '179', change: '+100%', subLabel: 'vs last week', color: 'var(--accent)' },
+  { label: 'ACTIVE AIRDROPS', value: '177', change: '+100%', subLabel: 'from yesterday', color: 'var(--accent)' },
+  { label: 'TOTAL RAISED', value: '$19.8B', change: '+100%', subLabel: 'this month', color: 'var(--accent)' },
+  { label: 'AVG DIFFICULTY', value: '64', color: 'var(--accent)' },
+  { label: 'LOW COST', value: '94', color: '#10b981' },
+  { label: 'IN PROGRESS', value: '0', color: 'var(--text)' },
 ]
 
 const projects = [
@@ -75,8 +75,8 @@ export default function Airdrops() {
       <div 
         onClick={() => setOpenDropdown(openDropdown === id ? null : id)}
         style={{ 
-          background: '#111111', 
-          border: `1px solid ${openDropdown === id ? '#82E006' : '#222222'}`, 
+          background: 'var(--surface)', 
+          border: `1px solid ${openDropdown === id ? 'var(--accent)' : 'var(--border)'}`, 
           borderRadius: 12, 
           padding: '0 16px', 
           height: 44,
@@ -84,7 +84,7 @@ export default function Airdrops() {
           alignItems: 'center', 
           gap: 8, 
           fontSize: 13, 
-          color: activeValue.includes('All') ? '#8e97a4' : '#ffffff', 
+          color: activeValue.includes('All') ? 'var(--muted)' : 'var(--text)', 
           cursor: 'pointer',
           transition: 'all 0.2s',
           minWidth: 140,
@@ -105,12 +105,12 @@ export default function Airdrops() {
           top: 'calc(100% + 8px)', 
           left: 0, 
           right: 0, 
-          background: '#111111', 
-          border: '1px solid #222222', 
+          background: 'var(--surface)', 
+          border: '1px solid var(--border)', 
           borderRadius: 12, 
           zIndex: 100, 
           overflow: 'hidden',
-          boxShadow: '0 10px 25px rgba(0,0,0,0.5)',
+          boxShadow: '0 10px 25px var(--shadow)',
           animation: 'fadeUp 0.2s ease-out'
         }}>
           {options.map((opt: string) => (
@@ -140,7 +140,7 @@ export default function Airdrops() {
   )
 
   return (
-    <div style={{ background: '#000000', minHeight: '100vh', padding: '40px 20px', color: '#ffffff', fontFamily: 'Inter, sans-serif' }}>
+    <div style={{ background: 'var(--bg)', minHeight: '100vh', padding: '40px 20px', color: 'var(--text)', fontFamily: 'Inter, sans-serif' }}>
       
       {/* Top Header */}
       <div style={{ maxWidth: 1280, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 40, gap: 20, flexWrap: 'wrap' }}>
@@ -152,17 +152,17 @@ export default function Airdrops() {
             Discover and master the latest opportunities in the crypto space with our curated guide and tracking tools.
           </p>
         </div>
-        <div style={{ background: 'rgba(130, 224, 6, 0.05)', border: '1px solid rgba(130, 224, 6, 0.2)', padding: '8px 16px', borderRadius: 24, display: 'flex', alignItems: 'center', gap: 12 }}>
-          <div style={{ width: 14, height: 14, borderRadius: '50%', background: '#82E006', border: '3px solid rgba(130, 224, 6, 0.2)' }} />
-          <span style={{ fontSize: 14, color: '#ffffff' }}>Want to get listed here?</span>
-          <button style={{ background: '#1c1c1c', color: '#82E006', padding: '6px 16px', borderRadius: 20, fontSize: 14, fontWeight: 600, border: 'none', cursor: 'pointer' }}>Contact us</button>
+        <div style={{ background: 'var(--accent-lo)', border: '1px solid var(--accent-mid)', padding: '8px 16px', borderRadius: 24, display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ width: 14, height: 14, borderRadius: '50%', background: 'var(--accent)', border: '3px solid var(--accent-lo)' }} />
+          <span style={{ fontSize: 14, color: 'var(--text)' }}>Want to get listed here?</span>
+          <button style={{ background: 'var(--surface)', color: 'var(--accent)', padding: '6px 16px', borderRadius: 20, fontSize: 14, fontWeight: 600, border: '1px solid var(--border)', cursor: 'pointer' }}>Contact us</button>
         </div>
       </div>
 
       {/* Stats Cards */}
       <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 16, marginBottom: 32 }}>
         {stats.map((s, i) => (
-          <div key={i} style={{ background: '#111111', border: '1px solid #222222', borderRadius: 16, padding: '20px' }}>
+          <div key={i} style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 16, padding: '20px' }}>
             <div style={{ fontSize: 11, fontWeight: 600, color: '#8e97a4', marginBottom: 12, letterSpacing: '0.05em' }}>{s.label}</div>
             <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}>
               <div style={{ fontSize: 28, fontWeight: 700, color: s.color }}>{s.value}</div>
@@ -187,11 +187,11 @@ export default function Airdrops() {
             placeholder="Search projects..." 
             style={{ 
               width: '100%', 
-              background: '#111111', 
-              border: search ? '1px solid #82E006' : '1px solid #222222', 
+              background: 'var(--surface)', 
+              border: search ? '1px solid var(--accent)' : '1px solid var(--border)', 
               borderRadius: 12, 
               padding: '12px 12px 12px 40px', 
-              color: '#ffffff', 
+              color: 'var(--text)', 
               outline: 'none',
               transition: 'border-color 0.2s'
             }} 
@@ -213,19 +213,19 @@ export default function Airdrops() {
       </div>
 
       {/* Table Container */}
-      <div style={{ maxWidth: 1280, margin: '0 auto', background: '#0a0a0a', border: '1px solid #1a1a1a', borderRadius: 20, overflow: 'hidden' }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 20, overflow: 'hidden' }}>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
-              <tr style={{ borderBottom: '1px solid #1a1a1a', background: 'rgba(255,255,255,0.02)' }}>
-                <th style={{ padding: '20px 24px', fontSize: 11, fontWeight: 700, color: '#82E006', textTransform: 'uppercase' }}>Project Joined</th>
-                <th style={{ padding: '20px 12px', fontSize: 11, fontWeight: 700, color: '#82E006', textTransform: 'uppercase', textAlign: 'right' }}>Cost and Time</th>
-                <th style={{ padding: '20px 12px', fontSize: 11, fontWeight: 700, color: '#82E006', textTransform: 'uppercase', textAlign: 'right' }}>Fundraise</th>
-                <th style={{ padding: '20px 12px', fontSize: 11, fontWeight: 700, color: '#82E006', textTransform: 'uppercase', textAlign: 'center' }}>Tasks</th>
-                <th style={{ padding: '20px 12px', fontSize: 11, fontWeight: 700, color: '#82E006', textTransform: 'uppercase' }}>Difficulty</th>
-                <th style={{ padding: '20px 12px', fontSize: 11, fontWeight: 700, color: '#82E006', textTransform: 'uppercase' }}>About</th>
-                <th style={{ padding: '20px 12px', fontSize: 11, fontWeight: 700, color: '#82E006', textTransform: 'uppercase' }}>X Rating</th>
-                <th style={{ padding: '20px 24px', fontSize: 11, fontWeight: 700, color: '#82E006', textTransform: 'uppercase', textAlign: 'right' }}>Update</th>
+              <tr style={{ borderBottom: '1px solid var(--border)', background: 'var(--surface2)' }}>
+                <th style={{ padding: '20px 24px', fontSize: 11, fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase' }}>Project Joined</th>
+                <th style={{ padding: '20px 12px', fontSize: 11, fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase', textAlign: 'right' }}>Cost and Time</th>
+                <th style={{ padding: '20px 12px', fontSize: 11, fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase', textAlign: 'right' }}>Fundraise</th>
+                <th style={{ padding: '20px 12px', fontSize: 11, fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase', textAlign: 'center' }}>Tasks</th>
+                <th style={{ padding: '20px 12px', fontSize: 11, fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase' }}>Difficulty</th>
+                <th style={{ padding: '20px 12px', fontSize: 11, fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase' }}>About</th>
+                <th style={{ padding: '20px 12px', fontSize: 11, fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase' }}>X Rating</th>
+                <th style={{ padding: '20px 24px', fontSize: 11, fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase', textAlign: 'right' }}>Update</th>
               </tr>
             </thead>
             <tbody>

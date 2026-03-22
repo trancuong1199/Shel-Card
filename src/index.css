@@ -10,29 +10,28 @@
 
 html {
   scroll-behavior: smooth;
-  background: #0b0d10;
+  background: #faf8f6;
+  background: var(--bg);
 }
 
 :root {
-  --bg: #0b0d10;
-  --surface: #151921;
-  --surface2: #1e232e;
-  --border: #262c36;
-  --border2: #303745;
-  --text: #ffffff;
-  --muted: #8e97a4;
-  --accent: #0091ff;
-  --accent-lo: rgba(0, 145, 255, 0.10);
-  --accent-mid: rgba(0, 145, 255, 0.22);
+  --bg: #fff5f8;
+  --surface: #ffffff;
+  --surface2: #fff9fc;
+  --border: #eee0d5;
+  --border2: #e0d0c5;
+  --text: #3c2a2a;
+  --muted: #a68a8a;
+  --accent: #ff60b6;
+  --accent-lo: rgba(255, 96, 182, 0.10);
+  --accent-mid: rgba(255, 96, 182, 0.22);
   --on-accent: #ffffff;
-  --shadow: rgba(0, 0, 0, 0.4);
+  --shadow: rgba(60, 42, 42, 0.1);
 }
 
 body {
   font-family: 'IBM Plex Mono', -apple-system, sans-serif;
-  background: #0b0d10;
   background: var(--bg);
-  color: #ffffff;
   color: var(--text);
   min-height: 100vh;
   font-size: 14px;
@@ -111,6 +110,11 @@ input, textarea {
 .live-dot { animation: blink 2s ease-in-out infinite; }
 .pulse { animation: pulse 2s ease-in-out infinite; }
 .slide-in { animation: slideIn 0.5s ease-out; }
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+}
 .glow { animation: glow 2s ease-in-out infinite; }
 
 .badge-grid {

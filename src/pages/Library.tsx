@@ -9,8 +9,8 @@ const defaultBadges = [
     id: 1,
     name: 'Soneium Badge',
     network: 'Soneium',
-    dotColor: '#8e97a4',
-    image: 'https://placehold.co/600x400/151921/ffffff?text=Soneium+Badge',
+    dotColor: '#a68a8a',
+    image: 'https://placehold.co/600x400/faf8f6/3c2a2a?text=Soneium+Badge',
     description: 'Exclusive collectible badge for Soneium community members. Show your support for the ecosystem.',
   },
   {
@@ -18,15 +18,15 @@ const defaultBadges = [
     name: 'Base Badge',
     network: 'Base',
     dotColor: '#0052ff',
-    image: 'https://placehold.co/600x400/151921/ffffff?text=Base+Badge',
+    image: 'https://placehold.co/600x400/faf8f6/3c2a2a?text=Base+Badge',
     description: 'Exclusive collectible badge for Base community members. Show your support for the ecosystem.',
   },
   {
     id: 3,
     name: 'MegaETH Badge',
     network: 'MegaETH',
-    dotColor: '#ffffff',
-    image: 'https://placehold.co/600x400/151921/ffffff?text=MegaETH+Badge',
+    dotColor: '#3c2a2a',
+    image: 'https://placehold.co/600x400/faf8f6/3c2a2a?text=MegaETH+Badge',
     description: 'Exclusive collectible badge for MegaETH community members. Show your support for the ecosystem.',
   },
 ]
@@ -115,22 +115,22 @@ export default function Library() {
           maxWidth: 480, width: '100%', padding: '48px 32px',
           background: 'var(--surface)', backdropFilter: 'blur(24px)',
           border: '1px solid var(--border)', borderRadius: 32,
-          textAlign: 'center', boxShadow: '0 24px 64px rgba(0,0,0,0.4)',
+          textAlign: 'center', boxShadow: '0 24px 64px var(--shadow)',
           position: 'relative', zIndex: 10
         }}>
           {/* Animated Icon Container */}
           <div style={{
             width: 88, height: 88, borderRadius: 24,
-            background: 'linear-gradient(135deg, #1e232e 0%, #151921 100%)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            background: 'var(--surface2)',
+            border: '1px solid var(--border)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             margin: '0 auto 32px', position: 'relative'
           }}>
             <div className="pulse" style={{
               position: 'absolute', inset: -8, borderRadius: 32,
-              background: 'rgba(0, 145, 255, 0.1)', zIndex: -1
+              background: 'var(--accent-lo)', zIndex: -1
             }} />
-            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#0091ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <rect x="2" y="6" width="20" height="12" rx="2" /><circle cx="12" cy="12" r="2" /><path d="M6 12h.01M18 12h.01" />
             </svg>
           </div>
@@ -147,7 +147,7 @@ export default function Library() {
             className="glow"
             style={{
               width: '100%', padding: '16px', borderRadius: 16,
-              background: '#0091ff', color: '#ffffff', fontSize: 16, fontWeight: 700,
+              background: 'var(--accent)', color: 'var(--on-accent)', fontSize: 16, fontWeight: 700,
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12,
               transition: 'all 0.2s'
             }}
@@ -276,7 +276,7 @@ export default function Library() {
         padding: '24px', width: 320,
         boxShadow: '0 12px 48px var(--shadow)',
         zIndex: 1000,
-        background: '#151921'
+        background: 'var(--surface)'
       }}>
         <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--text)', marginBottom: 8, lineHeight: 1.4, letterSpacing: -0.3 }}>
           Own your card, don't rent it.
