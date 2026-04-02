@@ -38,6 +38,7 @@ export default function Library() {
   const [showToast, setShowToast] = useState(false)
   const [toastMsg, setToastMsg] = useState('')
   const [isDeleting, setIsDeleting] = useState<number | null>(null)
+  const [selectedBadge, setSelectedBadge] = useState<any | null>(null)
 
   const { mutateAsync: deleteBlobs } = useDeleteBlobs({ client: shelbyClient })
 
@@ -48,21 +49,16 @@ export default function Library() {
     setAllBadges([...userBadges, ...defaultBadges])
   }, [location.key])
 
-  const handleMint = (badgeName: string) => {
-    setToastMsg(`Successfully minted ${badgeName}!`)
-    setShowToast(true)
-    setTimeout(() => setShowToast(false), 4000)
-  }
 
   const handleDelete = async (badge: any) => {
     setIsDeleting(badge.id)
-    
+
     try {
       // 1. If it's a Shelby blob, delete on-chain
       if (badge.blobName && wallet.account) {
         setToastMsg('Deleting from Shelby Network...')
         setShowToast(true)
-        
+
         await deleteBlobs({
           signer: wallet,
           blobNames: [badge.blobName]
@@ -73,9 +69,9 @@ export default function Library() {
       const userBadges = JSON.parse(localStorage.getItem('user_badges') || '[]')
       const updatedUserBadges = userBadges.filter((b: any) => b.id !== badge.id)
       localStorage.setItem('user_badges', JSON.stringify(updatedUserBadges))
-      
+
       setAllBadges(allBadges.filter((b: any) => b.id !== badge.id))
-      
+
       setToastMsg(`Successfully deleted!`)
       setShowToast(true)
     } catch (error: any) {
@@ -139,7 +135,7 @@ export default function Library() {
             Connect your wallet
           </h2>
           <p style={{ color: 'var(--muted)', fontSize: 16, lineHeight: 1.6, marginBottom: 40 }}>
-            Join the OnChainGM community to unlock and collect exclusive blockchain badges today.
+            Join the Shelby community to unlock and collect exclusive blockchain badges today.
           </p>
 
           <button
@@ -203,10 +199,10 @@ export default function Library() {
             <div style={{ position: 'relative', width: '100%', aspectRatio: '4/3', background: 'var(--surface2)' }}>
               <img src={badge.image} alt={badge.name} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.9 }} />
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 60%, var(--surface))' }} />
-              
+
               {/* Delete Button (only for user-uploaded badges) */}
               {badge.id > 1000 && (
-                <button 
+                <button
                   onClick={(e) => {
                     e.stopPropagation();
                     handleDelete(badge);
@@ -257,10 +253,10 @@ export default function Library() {
               </p>
 
               <div
-                onClick={() => handleMint(badge.name)}
+                onClick={() => setSelectedBadge(badge)}
                 style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--accent)', fontSize: 15, fontWeight: 700, cursor: 'pointer' }}
               >
-                Mint Now
+                Check now!
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
                 </svg>
@@ -293,6 +289,149 @@ export default function Library() {
           Register card
         </button>
       </div>
+
+      {/* Details Popup */}
+      {selectedBadge && (
+        <div style={{
+          position: 'fixed', inset: 0, zIndex: 10000,
+          background: 'rgba(250, 248, 246, 0.7)',
+          backdropFilter: 'blur(12px)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          padding: '24px', animation: 'fadeUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+        }}>
+          <div style={{
+            maxWidth: 800, width: '100%',
+            background: 'var(--surface)',
+            border: '1px solid var(--border)',
+            borderRadius: 32,
+            overflow: 'hidden',
+            boxShadow: '0 40px 100px var(--shadow)',
+            position: 'relative',
+            display: 'flex',
+            flexDirection: window.innerWidth < 768 ? 'column' : 'row'
+          }}>
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedBadge(null)}
+              style={{
+                position: 'absolute', top: 20, right: 20, zIndex: 20,
+                width: 36, height: 36, borderRadius: '50%',
+                background: 'var(--surface)', color: 'var(--text)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                border: '1px solid var(--border)', cursor: 'pointer',
+                boxShadow: '0 4px 12px var(--shadow)'
+              }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+
+            {/* Left: Image */}
+            <div style={{ 
+              flex: '1.2', 
+              background: 'var(--surface2)', 
+              minHeight: 320,
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <img 
+                src={selectedBadge.image} 
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                alt={selectedBadge.name}
+              />
+              <div style={{ 
+                position: 'absolute', inset: 0, 
+                background: 'linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.3))' 
+              }} />
+            </div>
+
+            {/* Right: Content */}
+            <div style={{ 
+              flex: '1', 
+              padding: '48px 40px', 
+              display: 'flex', 
+              flexDirection: 'column', 
+              justifyContent: 'center',
+              maxHeight: '85vh',
+              overflowY: 'auto'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+                <div style={{ width: 10, height: 10, borderRadius: '50%', background: selectedBadge.dotColor, boxShadow: `0 0 10px ${selectedBadge.dotColor}` }} />
+                <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: 1.5 }}>
+                  {selectedBadge.network}
+                </span>
+                <span style={{ 
+                  background: 'var(--accent-lo)', color: 'var(--accent)', 
+                  fontSize: 10, fontWeight: 800, padding: '4px 10px', borderRadius: 20,
+                  textTransform: 'uppercase'
+                }}>
+                  Active
+                </span>
+              </div>
+
+              <h2 style={{ 
+                fontSize: 28, fontWeight: 900, color: 'var(--text)', 
+                marginBottom: 16, letterSpacing: -0.5, lineHeight: 1.2,
+                wordBreak: 'break-word', overflowWrap: 'anywhere'
+              }}>
+                {selectedBadge.name}
+              </h2>
+
+              <p style={{ 
+                fontSize: 15, color: 'var(--muted)', lineHeight: 1.7, 
+                marginBottom: 32, opacity: 0.9 
+              }}>
+                {selectedBadge.description}
+              </p>
+              
+              <div style={{ 
+                background: 'var(--bg)', 
+                padding: '24px', 
+                borderRadius: 24, 
+                border: '1px solid var(--border)', 
+                marginBottom: 32,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 12
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: 13, color: 'var(--muted)', fontWeight: 600 }}>Status</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#4ade80' }} />
+                    <span style={{ fontSize: 13, fontWeight: 700, color: '#4ade80' }}>Verified Card</span>
+                  </div>
+                </div>
+                <div style={{ height: 1, background: 'var(--border)', opacity: 0.5 }} />
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: 13, color: 'var(--muted)', fontWeight: 600 }}>Format</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)' }}>Dynamic NFT</span>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setSelectedBadge(null)}
+                style={{
+                  width: '100%', padding: '18px', borderRadius: 20,
+                  background: 'var(--text)', color: '#fff', 
+                  fontSize: 16, fontWeight: 700,
+                  cursor: 'pointer', border: 'none',
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                  boxShadow: '0 10px 20px var(--shadow)'
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.transform = 'translateY(-2px)'
+                  e.currentTarget.style.boxShadow = '0 15px 30px var(--shadow)'
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.transform = 'translateY(0)'
+                  e.currentTarget.style.boxShadow = '0 10px 20px var(--shadow)'
+                }}
+              >
+                Close details
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

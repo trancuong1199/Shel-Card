@@ -19,7 +19,14 @@ export default function CardUpload({ onClose }: Props) {
   const [description, setDescription] = useState('')
   const [isUploading, setIsUploading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertConfig, setAlertConfig] = useState({ title: '', message: '' })
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  const triggerAlert = (title: string, message: string) => {
+    setAlertConfig({ title, message })
+    setShowAlert(true)
+  }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selected = e.target.files?.[0]
@@ -37,7 +44,7 @@ export default function CardUpload({ onClose }: Props) {
 
     // Check wallet connection for real upload
     if (!wallet.account) {
-      alert('Vui lòng kết nối ví để tải lên Shelby Network!')
+      triggerAlert('Wallet Required', 'Please connect your wallet to upload to Shelby Network!')
       return
     }
 
@@ -83,7 +90,7 @@ export default function CardUpload({ onClose }: Props) {
 
       // Fallback for simulation if API Key is missing (only for development/demo)
       if (error.message?.includes('Unauthorized') || !import.meta.env.VITE_SHELBY_TESTNET_KEY) {
-        alert('Note: Running in Demo mode (no API key). Data will be stored locally.')
+        triggerAlert('Demo Mode', 'Note: Running in Demo mode (no API key). Data will be stored locally.')
         const newBadge = {
           id: Date.now(),
           name: name || 'Demo Card',
@@ -96,7 +103,7 @@ export default function CardUpload({ onClose }: Props) {
         localStorage.setItem('user_badges', JSON.stringify([newBadge, ...existing]))
         setIsSuccess(true)
       } else {
-        alert(`Tải lên thất bại: ${error.message}`)
+        triggerAlert('Upload Failed', `Error: ${error.message}`)
       }
     }
   }
@@ -239,6 +246,55 @@ export default function CardUpload({ onClose }: Props) {
               ) : 'Upload now'}
             </button>
           </>
+        )}
+
+        {/* Custom Alert Popup */}
+        {showAlert && (
+          <div style={{
+            position: 'absolute', inset: 0, zIndex: 3000,
+            background: 'rgba(255, 255, 255, 0.7)',
+            backdropFilter: 'blur(8px)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            borderRadius: 24, padding: 24,
+            animation: 'fadeUp 0.2s ease-out'
+          }}>
+            <div style={{
+              background: 'var(--surface)',
+              border: '1px solid var(--border)',
+              borderRadius: 20, padding: 24,
+              boxShadow: '0 20px 40px var(--shadow)',
+              textAlign: 'center', width: '100%', maxWidth: 320
+            }}>
+              <div style={{
+                width: 56, height: 56, borderRadius: '50%', background: 'rgb(255, 241, 242)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px'
+              }}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" strokeWidth="2.5">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                  <line x1="12" y1="9" x2="12" y2="13" />
+                  <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg>
+              </div>
+              <h3 style={{ color: 'var(--text)', fontSize: 18, fontWeight: 700, marginBottom: 8 }}>{alertConfig.title}</h3>
+              <p style={{ color: 'var(--muted)', fontSize: 14, marginBottom: 20, lineHeight: 1.5 }}>{alertConfig.message}</p>
+              <button
+                onClick={() => {
+                  setShowAlert(false)
+                  if (alertConfig.title === 'Wallet Required') {
+                    onClose()
+                    navigate('/library')
+                  }
+                }}
+                style={{
+                  width: '100%', padding: '12px', borderRadius: 12,
+                  background: 'var(--text)', color: '#fff', fontSize: 14, fontWeight: 600,
+                  cursor: 'pointer'
+                }}
+              >
+                Got it
+              </button>
+            </div>
+          </div>
         )}
       </div>
     </div>

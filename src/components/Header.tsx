@@ -66,7 +66,7 @@ export default function Header() {
                 ShelCard
               </span>
               <span style={{ fontSize: 10, color: 'var(--muted)', fontWeight: 500, userSelect: 'none', cursor: 'default' }}>
-                Your Daily Web3 Ritual
+                Your Daily on ShelCard
               </span>
             </div>
           </Link>
